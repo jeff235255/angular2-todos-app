@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
-
-export class Todo {
-  id: string;
-  name: string;
-  detail: string;
-}
+import { Todo } from './todo';
+import { TodoDetailsComponent } from './todo-details.component';
 
 var TODOS: Todo[] = [
   { id: '01', name: 'Python', detail: 'Python with DJAngo FW' },
@@ -29,18 +25,7 @@ var TODOS: Todo[] = [
         <span class="badge">{{todo.id}}</span> {{todo.name}}
       </li>
     </ul>
-    <div *ngIf="selectedTodo">
-      <h2>{{selectedTodo.name}} details!</h2>
-      <div><label>id: </label>{{selectedTodo.id}}</div>
-      <div>
-        <label>name: </label>
-        <input [(ngModel)]="selectedTodo.name" placeholder="name"/>
-      </div>
-      <div>
-        <label>Detail: </label>
-        <input [(ngModel)]="selectedTodo.detail" placeholder="detail">
-      </div>
-    </div>
+    <my-todo-detail [todo]="selectedTodo"></my-todo-detail>
   `,
   styles: [`
     .selected {
@@ -90,7 +75,8 @@ var TODOS: Todo[] = [
       margin-right: .8em;
       border-radius: 4px 0 0 4px;
     }
-  `]
+  `],
+  directives: [TodoDetailsComponent]
 })
 
 export class AppComponent { 
