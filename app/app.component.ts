@@ -8,14 +8,8 @@ import { TodoDetailsComponent } from './todo-details.component'
 
 @Component({
   selector: 'todos-app',
-  template: `
-    <h1>{{title}}</h1>
-    <nav>
-      <a [routerLink]="['Dashboard']">Dashboard</a>
-      <a [routerLink]="['Todos']">Todos</a>
-    </nav>
-    <router-outlet></router-outlet>
-  `,
+  templateUrl: 'app/app.component.html',
+  styleUrls: ['app/app.component.css'],
   directives: [ROUTER_DIRECTIVES],
   providers: [
     ROUTER_PROVIDERS,
@@ -38,7 +32,7 @@ import { TodoDetailsComponent } from './todo-details.component'
   },
   {
     path: '/detail/:id',
-    name: 'HeroDetail',
+    name: 'TodoDetail',
     component: TodoDetailsComponent
   }
 ])

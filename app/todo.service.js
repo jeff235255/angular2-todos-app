@@ -21,6 +21,10 @@ var TodoService = (function () {
             return setTimeout(function () { return resolve(mock_todos_1.TODOS); }, 200);
         });
     };
+    TodoService.prototype.getTodo = function (id) {
+        return this.getTodos()
+            .then(function (todos) { return todos.filter(function (todo) { return todo.id === id; })[0]; });
+    };
     TodoService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [])

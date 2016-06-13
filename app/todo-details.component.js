@@ -9,20 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var todo_1 = require('./todo');
+var router_deprecated_1 = require('@angular/router-deprecated');
+var todo_service_1 = require('./todo.service');
 var TodoDetailsComponent = (function () {
-    function TodoDetailsComponent() {
+    function TodoDetailsComponent(todoService, routesParams) {
+        this.todoService = todoService;
+        this.routesParams = routesParams;
     }
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', todo_1.Todo)
-    ], TodoDetailsComponent.prototype, "todo", void 0);
+    TodoDetailsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var id = this.routesParams.get('id');
+        this.todoService.getTodo(id).then(function (todo) { return _this.todo = todo; });
+    };
+    TodoDetailsComponent.prototype.goBack = function () {
+        window.history.back();
+    };
     TodoDetailsComponent = __decorate([
         core_1.Component({
             selector: 'my-todo-detail',
-            template: "\n    <div *ngIf=\"todo\">\n      <h2>{{todo.name}} details!</h2>\n      <div><label>ID: </label>{{todo.id}}</div>\n      <div>\n        <label>Name: </label>\n        <input [(ngModel)]=\"todo.name\" placeholder=\"name\"/>\n      </div>\n      <div>\n        <label>Detail: </label>\n        <input [(ngModel)]=\"todo.detail\" placeholder=\"detail\"/>\n      </div>\n    </div>\n  "
+            templateUrl: 'app/todo-details.component.html',
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [todo_service_1.TodoService, router_deprecated_1.RouteParams])
     ], TodoDetailsComponent);
     return TodoDetailsComponent;
 }());

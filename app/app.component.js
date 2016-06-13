@@ -21,7 +21,8 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'todos-app',
-            template: "\n    <h1>{{title}}</h1>\n    <nav>\n      <a [routerLink]=\"['Dashboard']\">Dashboard</a>\n      <a [routerLink]=\"['Todos']\">Todos</a>\n    </nav>\n    <router-outlet></router-outlet>\n  ",
+            templateUrl: 'app/app.component.html',
+            styleUrls: ['app/app.component.css'],
             directives: [router_deprecated_1.ROUTER_DIRECTIVES],
             providers: [
                 router_deprecated_1.ROUTER_PROVIDERS,
@@ -42,7 +43,7 @@ var AppComponent = (function () {
             },
             {
                 path: '/detail/:id',
-                name: 'HeroDetail',
+                name: 'TodoDetail',
                 component: todo_details_component_1.TodoDetailsComponent
             }
         ]), 

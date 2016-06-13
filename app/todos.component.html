@@ -1,0 +1,12 @@
+<h2>My todos list</h2>
+<ul class="todos">
+  <li *ngFor="let todo of todos" (click)="onSelect(todo)" [class.selected] = "todo === selectedTodo">
+    <span class="badge">{{todo.id}}</span> {{todo.name}}
+  </li>
+</ul>
+<div *ngIf="selectedTodo">
+  <h2>
+    {{selectedTodo.name | uppercase}} is my todo
+  </h2>
+  <button (click)="gotoDetail()">View Details</button>
+</div>

@@ -9,10 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_deprecated_1 = require('@angular/router-deprecated');
 var todo_service_1 = require('./todo.service');
 var DashboardComponent = (function () {
-    function DashboardComponent(todoService) {
+    function DashboardComponent(todoService, router) {
         this.todoService = todoService;
+        this.router = router;
         this.todos = [];
     }
     DashboardComponent.prototype.ngOnInit = function () {
@@ -20,13 +22,17 @@ var DashboardComponent = (function () {
         this.todoService.getTodos()
             .then(function (todos) { return _this.todos = todos.slice(1, 5); });
     };
-    DashboardComponent.prototype.gotoDetail = function () { };
+    DashboardComponent.prototype.gotoDetail = function (todo) {
+        var link = ['TodoDetail', { id: todo.id }];
+        this.router.navigate(link);
+    };
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'my-dashboard',
-            templateUrl: 'app/dashboard.component.html'
+            templateUrl: 'app/dashboard.component.html',
+            styleUrls: ['app/dashboard.component.css']
         }), 
-        __metadata('design:paramtypes', [todo_service_1.TodoService])
+        __metadata('design:paramtypes', [todo_service_1.TodoService, router_deprecated_1.Router])
     ], DashboardComponent);
     return DashboardComponent;
 }());

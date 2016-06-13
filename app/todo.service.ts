@@ -15,4 +15,9 @@ export class TodoService {
 
     );
   }
+
+  getTodo(id: string) {
+    return this.getTodos()
+      .then(todos => todos.filter(todo => todo.id === id)[0]);
+  }
 }
