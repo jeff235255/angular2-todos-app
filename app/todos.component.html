@@ -1,9 +1,24 @@
 <h2>My todos list</h2>
+<button (click)="addTodo()">Add New Todo</button>
+<div *ngIf="addingTodo">
+  <my-todo-detail (close)="close($event)"></my-todo-detail>
+</div>
+
 <ul class="todos">
   <li *ngFor="let todo of todos" (click)="onSelect(todo)" [class.selected] = "todo === selectedTodo">
-    <span class="badge">{{todo.id}}</span> {{todo.name}}
+    <span class="hero-element">
+      <span class="badge">{{todo.id}}</span> {{todo.name}}
+    </span>
+    <button class="delete-button" (click)="delete(todo, $event)">Delete</button>
   </li>
+
 </ul>
+
+<button (click)="addTodo()">Add New Todo</button>
+<div *ngIf="addingTodo">
+  <my-todo-detail (close)="close($event)"></my-todo-detail>
+</div>
+
 <div *ngIf="selectedTodo">
   <h2>
     {{selectedTodo.name | uppercase}} is my todo

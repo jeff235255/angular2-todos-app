@@ -10,19 +10,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_deprecated_1 = require('@angular/router-deprecated');
+var todo_1 = require('./todo');
 var todo_service_1 = require('./todo.service');
 var TodoDetailsComponent = (function () {
     function TodoDetailsComponent(todoService, routesParams) {
         this.todoService = todoService;
         this.routesParams = routesParams;
+        this.navigated = false;
     }
     TodoDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        var id = this.routesParams.get('id');
-        this.todoService.getTodo(id).then(function (todo) { return _this.todo = todo; });
+        if (this.routesParams.get('id') !== null) {
+            var id = this.routesParams.get('id');
+            this.navigated = true;
+            this.todoService.getTodo(id).then(function (todo) { return _this.todo = todo; });
+        }
+        else {
+            this.navigated = false;
+            this.todo = new todo_1.Todo();
+        }
     };
-    TodoDetailsComponent.prototype.goBack = function () {
-        window.history.back();
+    TodoDetailsComponent.prototype.save = function () {
+        var _this = this;
+        this.todoService
+            .save(this.todo)
+            .then(function (todo) {
+            _this.todo = todo;
+            _this.goBack(todo);
+        })
+            .catch(function (error) { return _this.error = error; });
+    };
+    TodoDetailsComponent.prototype.goBack = function (saveTodo) {
+        if (saveTodo === void 0) { saveTodo = null; }
+        this.close.emit(saveTodo);
+        if (this.navigated) {
+            window.history.back();
+        }
     };
     TodoDetailsComponent = __decorate([
         core_1.Component({

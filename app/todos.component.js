@@ -17,6 +17,7 @@ var TodosComponent = (function () {
         this.router = router;
         this.todoService = todoService;
         this.title = "Todos app";
+        this.addingTodo = false;
     }
     TodosComponent.prototype.getTodos = function () {
         var _this = this;
@@ -25,9 +26,35 @@ var TodosComponent = (function () {
     TodosComponent.prototype.ngOnInit = function () {
         this.getTodos();
     };
-    TodosComponent.prototype.onSelect = function (todo) { this.selectedTodo = todo; };
+    TodosComponent.prototype.onSelect = function (todo) {
+        this.selectedTodo = todo;
+        this.addingTodo = false;
+    };
     TodosComponent.prototype.gotoDetail = function () {
         this.router.navigate(['TodoDetail', { id: this.selectedTodo.id }]);
+    };
+    TodosComponent.prototype.addTodo = function () {
+        this.addingTodo = true;
+        this.selectedTodo = null;
+    };
+    TodosComponent.prototype.close = function (savedTodo) {
+        this.addingTodo = false;
+        if (savedTodo) {
+            this.getTodos();
+        }
+    };
+    TodosComponent.prototype.delete = function (todo, event) {
+        var _this = this;
+        event.stopPropagation();
+        this.todoService
+            .delete(todo)
+            .then(function (res) {
+            _this.todos = _this.todos.filter(function (t) { return t !== todo; });
+            if (_this.selectedTodo === todo) {
+                _this.selectedTodo = null;
+            }
+        })
+            .catch(function (error) { return _this.error = error; });
     };
     TodosComponent = __decorate([
         core_1.Component({

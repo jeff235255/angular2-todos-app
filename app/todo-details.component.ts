@@ -10,6 +10,7 @@ import { TodoService } from './todo.service';
 
 export class TodoDetailsComponent implements OnInit {
   todo: Todo;
+  navigated: false;
 
   constructor(
     private todoService: TodoService,
@@ -17,11 +18,29 @@ export class TodoDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    let id = this.routesParams.get('id');
-    this.todoService.getTodo(id).then(todo => this.todo = todo);
+    if (this.routesParams.get('id') !== null) {
+      let id = this.routesParams.get('id');
+      this.navigated = true;
+      this.todoService.getTodo(id).then(todo => this.todo = todo);
+    } else {
+      this.navigated = false;
+      this.todo = new Todo();
+    }
+    
   }
 
-  goBack() {
-    window.history.back();
+  save() {
+    this.todoService
+      .save(this.todo)
+      .then(todo => {
+        this.todo = todo;
+        this.goBack(todo);
+      })
+      .catch(error => this.error = error);
+  }
+
+  goBack(saveTodo: Todo = null ) {
+    this.close.emit(saveTodo);
+    if (this.navigated) { window.history.back(); }
   }
 }
