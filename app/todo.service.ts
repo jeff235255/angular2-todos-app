@@ -20,13 +20,6 @@ export class TodoService {
     
   }
 
-  getTodosSlowly() {
-    return new Promise<Todo[]>(resolve =>
-      setTimeout(() => resolve(TODOS), 200)
-
-    );
-  }
-
   getTodo(id: string) {
     return this.getTodos()
       .then(todos => todos.filter(todo => todo.id === id)[0]);
@@ -55,7 +48,7 @@ export class TodoService {
   private put(todo: Todo) {
     let headers = new Headers();
 
-    headers.append('Content-Type': 'application/json');
+    headers.append('Content-Type', 'application/json');
     let url = `${this.todosUrl}/${todo.id}`;
 
     return this.http
@@ -68,7 +61,7 @@ export class TodoService {
   // Delete todo
   delete(todo: Todo) {
     let headers = new Headers();
-    headers.append('Content-Type': 'application/json')
+    headers.append('Content-Type', 'application/json');
 
     let url = `${this.todosUrl}/${todo.id}`;
 

@@ -16,7 +16,8 @@ var TodoDetailsComponent = (function () {
     function TodoDetailsComponent(todoService, routesParams) {
         this.todoService = todoService;
         this.routesParams = routesParams;
-        this.navigated = false;
+        this.close = new core_1.EventEmitter();
+        this.navigated = false; // true if navigated here
     }
     TodoDetailsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -47,10 +48,18 @@ var TodoDetailsComponent = (function () {
             window.history.back();
         }
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', todo_1.Todo)
+    ], TodoDetailsComponent.prototype, "todo", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], TodoDetailsComponent.prototype, "close", void 0);
     TodoDetailsComponent = __decorate([
         core_1.Component({
             selector: 'my-todo-detail',
-            templateUrl: 'app/todo-details.component.html',
+            templateUrl: 'app/todo-details.component.html'
         }), 
         __metadata('design:paramtypes', [todo_service_1.TodoService, router_deprecated_1.RouteParams])
     ], TodoDetailsComponent);

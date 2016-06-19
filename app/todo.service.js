@@ -22,11 +22,6 @@ var TodoService = (function () {
             .then(function (response) { return response.json().data; })
             .catch(this.handleError);
     };
-    TodoService.prototype.getTodosSlowly = function () {
-        return new Promise(function (resolve) {
-            return setTimeout(function () { return resolve(TODOS); }, 200);
-        });
-    };
     TodoService.prototype.getTodo = function (id) {
         return this.getTodos()
             .then(function (todos) { return todos.filter(function (todo) { return todo.id === id; })[0]; });

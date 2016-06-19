@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output  } from '@angular/core';
 import { RouteParams } from '@angular/router-deprecated';
+
 import { Todo } from './todo';
 import { TodoService } from './todo.service';
 
 @Component({
   selector: 'my-todo-detail',
-  templateUrl: 'app/todo-details.component.html',
+  templateUrl: 'app/todo-details.component.html'
 })
 
 export class TodoDetailsComponent implements OnInit {
-  todo: Todo;
-  navigated: false;
+  @Input() todo: Todo;
+  @Output() close = new EventEmitter();
+  
+  error: any;
+  navigated = false; // true if navigated here
 
   constructor(
     private todoService: TodoService,
